@@ -13,7 +13,7 @@ class Departement(models.Model):
         """
         Retourne la température maximale pour une année et un mois donnés.
         """
-        return self.temperatures.get(annee, {}).get(mois, None)
+        return self.temperatures.get(str(annee), {}).get(str(mois), None)
 
     def ecart_temperature(self, annee1, annee2, mois):
         """
@@ -37,9 +37,13 @@ class Departement(models.Model):
             return None
 
         self.score_energetique[annee] = {}
+        months_list = {
+            1: "Janvier", 2: "Février", 3: "Mars", 4: "Avril", 5: "Mai", 6: "Juin",
+            7: "Juillet", 8: "Août", 9: "Septembre", 10: "Octobre", 11: "Novembre", 12: "Décembre"
+        }
 
         for mois in range(1, 13):  
-            temp_max = self.get_temperature_max(annee, mois)
+            temp_max = self.get_temperature_max(annee, months_list[mois])
             if temp_max is not None:
                 self.score_energetique[annee][mois] = ThermalEfficiency_score(temp_max)
             else:
