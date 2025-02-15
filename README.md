@@ -79,13 +79,13 @@ Les fichiers HTML se trouvent dans `templates/`. Un exemple de fichier `home.htm
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Home</title>
 </head>
 <body>
-    <h2>Bienvenue sur notre site Django !</h2>
-    <button onclick="showMessage()">Cliquez-moi</button>
-    <script src="{% static 'js/script.js' %}"></script>
+    <h2>Welcome !</h2>
+    <p>Please connect yourself.</p>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Create an account</a>
 </body>
 </html>
 ```
@@ -99,17 +99,6 @@ function showMessage() {
     alert("Bonjour depuis Django !");
 }
 ```
-
-### 3️⃣ Ajouter le Dossier `static/` à Django
-
-Dans `settings.py`, assure-toi que Django sait où chercher les fichiers statiques :
-
-```python
-import os
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-```
-
 ---
 
 ## 📌 Liens Utiles
@@ -118,5 +107,3 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 - Django Template Language (DTL) : [https://docs.djangoproject.com/en/4.2/ref/templates/](https://docs.djangoproject.com/en/4.2/ref/templates/)
 
 ---
-
-### 🎉 Félicitations, ton projet Django est prêt à être utilisé ! 🚀
