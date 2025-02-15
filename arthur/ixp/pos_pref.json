@@ -81,6 +81,21 @@
       {"nom": "Essonne", "capital": "Évry", "latitude": 48.6339, "longitude": 2.4374},
       {"nom": "Val-de-Marne", "capital": "Créteil", "latitude": 48.7915, "longitude": 2.4606},
       {"nom": "Val-d'Oise", "capital": "Cergy", "latitude": 49.0362, "longitude": 2.0706},
-      {"nom": "Seine-et-Marne", "capital": "Melun", "latitude": 48.5372, "longitude": 2.6563}
+      {"nom": "Seine-et-Marne", "capital": "Melun", "latitude": 48.5372, "longitude": 2.6563},
+      {"nom": "Hautes-Alpes", "capital": "Gap", "latitude": 44.5584, "longitude": 6.0798},
+      {"nom": "Gers", "capital": "Auch", "latitude": 43.6467, "longitude": 0.585},
+      {"nom": "Haute-Loire", "capital": "Le Puy-en-Velay", "latitude": 45.0437, "longitude": 3.8852},
+      {"nom": "Lozère", "capital": "Mende", "latitude": 44.5182, "longitude": 3.4994},
+      {"nom": "Maine-et-Loire", "capital": "Angers", "latitude": 47.4784, "longitude": -0.5632},
+      {"nom": "Hautes-Pyrénées", "capital": "Tarbes", "latitude": 43.2332, "longitude": 0.0714},
+      {"nom": "Bas-Rhin", "capital": "Strasbourg", "latitude": 48.5734, "longitude": 7.7521},
+      {"nom": "Haut-Rhin", "capital": "Colmar", "latitude": 48.079, "longitude": 7.3585},
+      {"nom": "Savoie", "capital": "Chambéry", "latitude": 45.5646, "longitude": 5.9178},
+      {"nom": "Haute-Savoie", "capital": "Annecy", "latitude": 45.8992, "longitude": 6.1294},
+      {"nom": "Paris", "capital": "Paris", "latitude": 48.8566, "longitude": 2.3522},
+      {"nom": "Seine-Maritime", "capital": "Rouen", "latitude": 49.4432, "longitude": 1.0993},
+      {"nom": "Yvelines", "capital": "Versailles", "latitude": 48.8014, "longitude": 2.1301},
+      {"nom": "Deux-Sèvres", "capital": "Niort", "latitude": 46.3237, "longitude": -0.4588},
+      {"nom": "Hauts-de-Seine", "capital": "Nanterre", "latitude": 48.8924, "longitude": 2.2067}
     ]
   }
