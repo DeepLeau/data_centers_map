@@ -1,5 +1,6 @@
 from home.utils import ThermalEfficiency_score
 from django.db import models
+import json
 
 class Departement(models.Model):   
     nom = models.CharField(max_length=100, unique=True)
@@ -51,6 +52,19 @@ class Departement(models.Model):
 
         return self.score_energetique[annee]
     
+    def extract_score_ixp(self):
+        with open("arthur/ixp_score.json", "r", encoding="utf-8") as fichier:
+            data = json.load(fichier)
+
+            for departement_data in data:
+                if departement_data['nom'] == self.nom:
+                    self.score_ixp = departement_data['score']
+                    print("score:", self.score_ixp)
+                    return self.score_ixp
+
+            print(f"Score not found for departement {self.nom}")
+            return None
+        
     def get_total_score(self, annee="2100"):
         """
         Calcule le score total en prenant la moyenne des trois scores :
