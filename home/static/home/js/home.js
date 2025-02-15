@@ -6,63 +6,67 @@ document.addEventListener("DOMContentLoaded", function () {
     const sidebarContentContainer = document.querySelector("#sidebar .content");
     const openBtn = document.getElementById("open-btn");
 
-    const departmentScores = {
-        "01": 75,
-        "23": 61,
-        "16": 40,
-        "44": 87,
-        "78": 93,
-        "95": 100,
-        "85": 82
-    };
+    let departmentScores = {};  
 
-    fetch("https://france-geojson.gregoiredavid.fr/repo/departements.geojson")
+    fetch("/departements_scores/")
         .then(response => response.json())
         .then(data => {
-            L.geoJSON(data, {
-                style: function (feature) {
-                    const departmentCode = feature.properties.code;
-                    const score = departmentScores[departmentCode] || 0;
+            departmentScores = data;  
+            console.log("Scores chargés :", departmentScores);
 
-                    const fillColor = getColorByScore(score);
-
-                    return {
-                        color: "#333",
-                        weight: 1,
-                        fillColor: fillColor,
-                        fillOpacity: 0.7
-                    };
-                },
-                onEachFeature: function (feature, layer) {
-                    layer.on({
-                        mouseover: function (e) {
-                            const departmentCode = feature.properties.code;
-                            const score = departmentScores[departmentCode] || 0;
-                            const fillColor = getColorByScore(score);
-
-                            e.target.setStyle({
-                                fillColor: fillColor,
-                                fillOpacity: 1
-                            });
-
-                            showPopup(feature.properties.nom, score, event);
-                        },
-                        mouseout: function (e) {
-                            const departmentCode = feature.properties.code;
-                            const score = departmentScores[departmentCode] || 0;
-                            e.target.setStyle({
-                                fillColor: getColorByScore(score),
-                                fillOpacity: 0.7
-                            });
-                        },
-                        click: function (e) {
-                            showDepartmentInfo(feature);
-                        }
-                    });
-                }
-            }).addTo(map);
+           
+            loadMap();
         })
-        .catch(error => console.error("Error loading GeoJSON:", error));
+        .catch(error => console.error("Erreur lors du chargement des scores :", error));
+
+    function loadMap() {
+        fetch("https://france-geojson.gregoiredavid.fr/repo/departements.geojson")
+            .then(response => response.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    style: function (feature) {
+                        const departmentName = feature.properties.nom;
+                        const score = departmentScores[departmentName] || 0;
+                        const fillColor = getColorByScore(score);
+
+                        return {
+                            color: "#333",
+                            weight: 1,
+                            fillColor: fillColor,
+                            fillOpacity: 0.7
+                        };
+                    },
+                    onEachFeature: function (feature, layer) {
+                        layer.on({
+                            mouseover: function (e) {
+                                const departmentName = feature.properties.nom;
+                                const score = departmentScores[departmentName] || 0;
+                                const fillColor = getColorByScore(score);
+
+                                e.target.setStyle({
+                                    fillColor: fillColor,
+                                    fillOpacity: 1
+                                });
+
+                                showPopup(departmentName, score, event);
+                            },
+                            mouseout: function (e) {
+                                const departmentName = feature.properties.nom;
+                                const score = departmentScores[departmentName] || 0;
+                                e.target.setStyle({
+                                    fillColor: getColorByScore(score),
+                                    fillOpacity: 0.7
+                                });
+                            },
+                            click: function (e) {
+                                showDepartmentInfo(feature);
+                            }
+                        });
+                    }
+                }).addTo(map);
+            })
+            .catch(error => console.error("Erreur lors du chargement du GeoJSON :", error));
+    }
 
     function showPopup(title, score, event) {
         const popup = document.getElementById("custom-popup");
@@ -106,18 +110,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function showDepartmentInfo(feature) {
         const departmentName = feature.properties.nom;
-        const departmentCode = feature.properties.code;
-        const departmentScore = departmentScores[departmentCode] || "Non défini";
+        const departmentScore = departmentScores[departmentName] || "Non défini";
 
         const sidebarContent = `
             <h3>${departmentName}</h3>
-            <p><strong>Code:</strong> ${departmentCode}</p>
             <p><strong>Score:</strong> ${departmentScore}</p>
             <p><strong>Informations supplémentaires:</strong> Autres données ici.</p>
         `;
 
         sidebarContentContainer.innerHTML = sidebarContent;
-
         sidebar.classList.add('active');
     }
 

@@ -5,7 +5,10 @@ class Departement(models.Model):
     nom = models.CharField(max_length=100, unique=True)
     temperatures = models.JSONField()
     score_energetique = models.JSONField(default=dict)
-    
+    score_elec = models.FloatField(default=0)
+    score_ixp = models.FloatField(default=0)
+    total_score = models.FloatField(default=0)
+
     def get_temperature_max(self, annee, mois):
         """
         Retourne la température maximale pour une année et un mois donnés.
@@ -36,10 +39,13 @@ class Departement(models.Model):
         self.score_energetique[annee] = {}
 
         for mois in range(1, 13):  
-            temp_max = self.obtenir_temperature_max(annee, mois)
+            temp_max = self.get_temperature_max(annee, mois)
             if temp_max is not None:
                 self.score_energetique[annee][mois] = ThermalEfficiency_score(temp_max)
             else:
                 self.score_energetique[annee][mois] = None  
 
         return self.score_energetique[annee]
+    
+    def get_total_score(self, annee=2100):
+        self.total_score = round((self.score_elec + self.score_energetique[annee] + self.score_ixp)/3,1)
