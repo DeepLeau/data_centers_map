@@ -51,5 +51,14 @@ class Departement(models.Model):
 
         return self.score_energetique[annee]
     
-    def get_total_score(self, annee=2100):
-        self.total_score = round((self.score_elec + self.score_energetique[annee] + self.score_ixp)/3,1)
+    def get_total_score(self, annee="2100"):
+        """
+        Calcule le score total en prenant la moyenne des trois scores :
+        - score_elec
+        - max des valeurs de score_energetique[annee]
+        - score_ixp
+        """
+        score_energetique_max = max(self.score_energetique.get(annee, {}).values(), default=0)
+
+        self.total_score = round((self.score_elec + score_energetique_max + self.score_ixp) / 3, 2)
+        return self.total_score

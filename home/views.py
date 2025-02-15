@@ -12,6 +12,6 @@ def get_departements_scores(request):
     """
     departements = Departement.objects.all()
     data = {
-        dep.nom: dep.total_score for dep in departements
+        dep.nom: dep.get_total_score() for dep in departements
     }
     return JsonResponse(data)

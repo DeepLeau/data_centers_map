@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch("/departements_scores/")
         .then(response => response.json())
         .then(data => {
-            departmentScores = data;  
+            departmentScores = data; 
             console.log("Scores chargés :", departmentScores);
 
            
