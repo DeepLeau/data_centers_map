@@ -7,33 +7,56 @@
     <title>Carte de l'électricité en France</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet/dist/leaflet.js" defer></script>
     <script src="{% static 'home/js/home.js' %}" defer></script>
 </head>
 <body>
+    <div class="app-container">
+        <header class="main-header">
+            <h1>Carte de l'électricité</h1>
+            <div class="legend">
+                <h3>Légende</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="color-box high"></span>
+                        <span>95-100%</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-box medium"></span>
+                        <span>80-94%</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color-box low"></span>
+                        <span> -80%</span>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-    <div id="sidebar" class="sidebar">
-        <h2>SideBar</h2>
-        <div class="content"></div>
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h2>Détails du département</h2>
+                <button id="open-btn" class="open-btn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            <div class="content">
+                <div class="department-info">
+                </div>
+            </div>
+        </div>
 
-        <button id="open-btn" class="open-btn">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
+        <div id="map" class="map-container"></div>
 
-    <div id="map"></div>
-
-    <div id="custom-popup" class="custom-popup">
-        <div class="popup-content">
-            <h4 id="popup-title"></h4>
-            <p id="popup-description"></p>
+        <div id="custom-popup" class="custom-popup">
+            <div class="popup-content">
+                <h4 id="popup-title"></h4>
+                <p id="popup-description"></p>
+            </div>
         </div>
     </div>
-    
-
 </body>
 </html>
