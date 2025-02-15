@@ -42,13 +42,14 @@ body {
     z-index: 1001;
     position: absolute;
     display: block;
+    padding: 20px;
     top: 20px;
     left: -20px;
     height: 20px;
     width: 24px;
     border: none;
     cursor: pointer;
-    background: transparent;
+    background: #2c3e50;
 }
 
 .open-btn span {
@@ -60,32 +61,32 @@ body {
     transition: .3s;
 }
 .open-btn span:nth-child(1) {
-    top: 0;
-    left: 0;
+    top: 12px;
+    left: 10px;
 }
 .open-btn span:nth-child(2) {
     top: calc(50% - 1px);
-    left: 0;
+    left: 10px;
 }
 .open-btn span:nth-child(4) {
     top: calc(50% - 1px);
-    left: 0;
+    left: 10px;
 }
 .open-btn span:nth-child(3) {
-    bottom: 0;
-    left: 0;
+    bottom: 12px;
+    left: 10px;
 }
-.open-btn.active span {
+.sidebar.active .open-btn span {
     background-color: black;
 }
-.open-btn.active span:nth-child(1),
-.open-btn.active span:nth-child(3) {
+.sidebar.active .open-btn span:nth-child(1),
+.sidebar.active .open-btn span:nth-child(3) {
     opacity: 0;
     scale: 0;
 }
-.open-btn.active span:nth-child(2) {
+.sidebar.active .open-btn span:nth-child(2) {
     transform: rotateZ(45deg);
 }
-.open-btn.active span:nth-child(4) {
+.sidebar.active .open-btn span:nth-child(4) {
     transform: rotateZ(-45deg);
 }
