@@ -1,0 +1,330 @@
+[
+    {
+        "nom": "Ain",
+        "distance": 54.45035181811164
+    },
+    {
+        "nom": "Aisne",
+        "distance": 53.69980083353662
+    },
+    {
+        "nom": "Allier",
+        "distance": 89.45823821362109
+    },
+    {
+        "nom": "Alpes-de-Haute-Provence",
+        "distance": 109.71823456083207
+    },
+    {
+        "nom": "Alpes-Maritimes",
+        "distance": 159.15505686241139
+    },
+    {
+        "nom": "Ardèche",
+        "distance": 102.8006333298759
+    },
+    {
+        "nom": "Ardennes",
+        "distance": 110.03093602300625
+    },
+    {
+        "nom": "Ariège",
+        "distance": 293.31263124678264
+    },
+    {
+        "nom": "Aube",
+        "distance": 134.9013732257288
+    },
+    {
+        "nom": "Aude",
+        "distance": 243.95037652688126
+    },
+    {
+        "nom": "Aveyron",
+        "distance": 162.34185855343097
+    },
+    {
+        "nom": "Bouches-du-Rhône",
+        "distance": 2.413484782404662
+    },
+    {
+        "nom": "Calvados",
+        "distance": 158.30687812719117
+    },
+    {
+        "nom": "Cantal",
+        "distance": 105.09238802714492
+    },
+    {
+        "nom": "Charente",
+        "distance": 99.61414657981835
+    },
+    {
+        "nom": "Charente-Maritime",
+        "distance": 210.05710489668562
+    },
+    {
+        "nom": "Cher",
+        "distance": 153.73182498440096
+    },
+    {
+        "nom": "Corrèze",
+        "distance": 42.7610814179043
+    },
+    {
+        "nom": "Corse-du-Sud",
+        "distance": 317.0621186874869
+    },
+    {
+        "nom": "Haute-Corse",
+        "distance": 339.448156420261
+    },
+    {
+        "nom": "Côte-d'Or",
+        "distance": 167.10223054280985
+    },
+    {
+        "nom": "Côtes-d'Armor",
+        "distance": 96.68507546930307
+    },
+    {
+        "nom": "Creuse",
+        "distance": 66.8739917929209
+    },
+    {
+        "nom": "Dordogne",
+        "distance": 72.78864845624112
+    },
+    {
+        "nom": "Doubs",
+        "distance": 183.1917867761467
+    },
+    {
+        "nom": "Drôme",
+        "distance": 71.09778969110734
+    },
+    {
+        "nom": "Eure",
+        "distance": 72.97067659371548
+    },
+    {
+        "nom": "Eure-et-Loir",
+        "distance": 55.70524364650832
+    },
+    {
+        "nom": "Finistère",
+        "distance": 186.5658016982516
+    },
+    {
+        "nom": "Gard",
+        "distance": 99.13150070948109
+    },
+    {
+        "nom": "Haute-Garonne",
+        "distance": 221.97857657321225
+    },
+    {
+        "nom": "Gironde",
+        "distance": 179.5453287857879
+    },
+    {
+        "nom": "Hérault",
+        "distance": 124.03476798867268
+    },
+    {
+        "nom": "Ille-et-Vilaine",
+        "distance": 5.715837760917976
+    },
+    {
+        "nom": "Indre",
+        "distance": 134.50225825201477
+    },
+    {
+        "nom": "Indre-et-Loire",
+        "distance": 182.30429014144735
+    },
+    {
+        "nom": "Isère",
+        "distance": 0.39010429144801617
+    },
+    {
+        "nom": "Jura",
+        "distance": 111.76509153313381
+    },
+    {
+        "nom": "Landes",
+        "distance": 244.1027208957801
+    },
+    {
+        "nom": "Loir-et-Cher",
+        "distance": 134.5807218168962
+    },
+    {
+        "nom": "Loire",
+        "distance": 48.11931286963395
+    },
+    {
+        "nom": "Loire-Atlantique",
+        "distance": 100.29130169597829
+    },
+    {
+        "nom": "Loiret",
+        "distance": 85.81204129631935
+    },
+    {
+        "nom": "Lot",
+        "distance": 127.95200305522266
+    },
+    {
+        "nom": "Lot-et-Garonne",
+        "distance": 168.2310644989572
+    },
+    {
+        "nom": "Manche",
+        "distance": 116.83276959314311
+    },
+    {
+        "nom": "Marne",
+        "distance": 143.8788203228318
+    },
+    {
+        "nom": "Haute-Marne",
+        "distance": 196.29840769206058
+    },
+    {
+        "nom": "Mayenne",
+        "distance": 61.36843425728995
+    },
+    {
+        "nom": "Meurthe-et-Moselle",
+        "distance": 114.51428068987822
+    },
+    {
+        "nom": "Meuse",
+        "distance": 189.52146441115522
+    },
+    {
+        "nom": "Morbihan",
+        "distance": 100.77168722645862
+    },
+    {
+        "nom": "Moselle",
+        "distance": 128.325815242478
+    },
+    {
+        "nom": "Nièvre",
+        "distance": 134.5078835009763
+    },
+    {
+        "nom": "Nord",
+        "distance": 6.913252958042917
+    },
+    {
+        "nom": "Oise",
+        "distance": 108.92784203093218
+    },
+    {
+        "nom": "Orne",
+        "distance": 117.42458141630814
+    },
+    {
+        "nom": "Pas-de-Calais",
+        "distance": 44.05815386427886
+    },
+    {
+        "nom": "Puy-de-Dôme",
+        "distance": 0.6577493484494458
+    },
+    {
+        "nom": "Pyrénées-Atlantiques",
+        "distance": 293.96234253757933
+    },
+    {
+        "nom": "Pyrénées-Orientales",
+        "distance": 211.88415858929875
+    },
+    {
+        "nom": "Rhône",
+        "distance": 0.5559648803124753
+    },
+    {
+        "nom": "Haute-Saône",
+        "distance": 152.89294014643843
+    },
+    {
+        "nom": "Saône-et-Loire",
+        "distance": 52.87122526048379
+    },
+    {
+        "nom": "Sarthe",
+        "distance": 134.32883344969358
+    },
+    {
+        "nom": "Seine-et-Marne",
+        "distance": 33.830231531939496
+    },
+    {
+        "nom": "Seine-Saint-Denis",
+        "distance": 3.9553971291169847
+    },
+    {
+        "nom": "Somme",
+        "distance": 99.8964197022494
+    },
+    {
+        "nom": "Tarn",
+        "distance": 193.44714988254202
+    },
+    {
+        "nom": "Tarn-et-Garonne",
+        "distance": 176.10065316852297
+    },
+    {
+        "nom": "Var",
+        "distance": 50.69417495205718
+    },
+    {
+        "nom": "Vaucluse",
+        "distance": 83.12284253109263
+    },
+    {
+        "nom": "Vendée",
+        "distance": 161.70547258044505
+    },
+    {
+        "nom": "Vienne",
+        "distance": 138.04200953774279
+    },
+    {
+        "nom": "Haute-Vienne",
+        "distance": 29.379344705551432
+    },
+    {
+        "nom": "Vosges",
+        "distance": 101.43583117013318
+    },
+    {
+        "nom": "Yonne",
+        "distance": 139.03256124909805
+    },
+    {
+        "nom": "Territoire de Belfort",
+        "distance": 116.7182119289123
+    },
+    {
+        "nom": "Essonne",
+        "distance": 17.534217166608975
+    },
+    {
+        "nom": "Val-de-Marne",
+        "distance": 4.366393723050984
+    },
+    {
+        "nom": "Val-d'Oise",
+        "distance": 19.89908887833942
+    },
+    {
+        "nom": "Seine-et-Marne",
+        "distance": 33.830231531939496
+    }
+]
