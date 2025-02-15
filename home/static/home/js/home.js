@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const map = L.map('map').setView([46.603354, 1.888334], 7);
+    const map = L.map('map').setView([46.603354, 1.888334], 6);
     const mapContainer = document.getElementById("map")
     const sidebar = document.getElementById("sidebar");
     const openBtn = document.getElementById("open-btn");
