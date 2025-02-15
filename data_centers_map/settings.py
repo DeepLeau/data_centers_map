@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'login',
     'home',
     'dashboard',
-    'ai_models',
 ]
 
 MIDDLEWARE = [
