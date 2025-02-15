@@ -121,17 +121,3 @@ body {
 .custom-popup p {
     font-size: 14px;
 }
-
-.custom-popup button {
-    background-color: #ff5733;
-    border: none;
-    padding: 10px;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-}
-
-.custom-popup button:hover {
-    background-color: #c84b27;
-}
