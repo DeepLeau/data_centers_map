@@ -53,7 +53,7 @@ class Departement(models.Model):
         return self.score_energetique[annee]
     
     def extract_score_ixp(self):
-        with open("arthur/ixp_score.json", "r", encoding="utf-8") as fichier:
+        with open("arthur/ixp_scores.json", "r", encoding="utf-8") as fichier:
             data = json.load(fichier)
 
             for departement_data in data:
