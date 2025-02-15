@@ -224,4 +224,39 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
+
+    const leftSidebar = document.getElementById('left-sidebar');
+    const leftSidebarToggle = document.getElementById('left-sidebar-toggle');
+
+    leftSidebarToggle.addEventListener('click', () => {
+        leftSidebar.classList.toggle('active');
+    });
+
+    function updateStatistics() {
+        const scores = Object.values(departmentScores);
+        if (scores.length === 0) return;
+
+        const average = scores.reduce((a, b) => a + b, 0) / scores.length;
+        const median = scores.sort((a, b) => a - b)[Math.floor(scores.length / 2)];
+        const best = Math.max(...scores);
+        const worst = Math.min(...scores);
+
+        document.getElementById('average-score').textContent = average.toFixed(1) + '%';
+        document.getElementById('median-score').textContent = median.toFixed(1) + '%';
+        document.getElementById('best-score').textContent = best.toFixed(1) + '%';
+        document.getElementById('worst-score').textContent = worst.toFixed(1) + '%';
+
+    }
+
+    fetch("/departements_scores/")
+        .then(response => response.json())
+        .then(data => {
+            departmentScores = data;
+            updateStatistics(); 
+            loadMap();
+        })
+        .catch(error => {
+            console.error("Erreur lors du chargement des scores :", error);
+            showErrorMessage("Impossible de charger les données des départements");
+        });
 });
