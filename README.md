@@ -92,7 +92,7 @@ Les fichiers HTML se trouvent dans `templates/`. Un exemple de fichier `home.htm
 
 ### 2️⃣ Ajouter un Fichier JavaScript
 
-Place ton JavaScript dans `static/js/script.js` :
+Place ton JavaScript dans `static/js/script.js` dans l'application concerné:
 
 ```js
 function showMessage() {
