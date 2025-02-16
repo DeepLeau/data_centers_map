@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const sidebar = document.getElementById("sidebar");
     const sidebarContentContainer = document.querySelector("#sidebar .content");
     const openBtn = document.getElementById("open-btn");
+    const leftSidebar = document.getElementById('left-sidebar');
+    const leftSidebarToggle = document.getElementById('left-sidebar-toggle');
 
     let departmentScores = {};
     let currentActiveLayer = null;
@@ -21,40 +23,17 @@ document.addEventListener("DOMContentLoaded", function () {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
     }).addTo(map);
 
-    fetch("/departements_scores/")
-        .then(response => response.json())
-        .then(data => {
-            departmentScores = data;
-            loadMap();
-        })
-        .catch(error => {
-            console.error("Erreur lors du chargement des scores :", error);
-            showErrorMessage("Impossible de charger les données des départements");
-        });
-
-    function loadMap() {
-        fetch("https://france-geojson.gregoiredavid.fr/repo/departements.geojson")
-            .then(response => response.json())
-            .then(data => {
-                L.geoJSON(data, {
-                    style: function (feature) {
-                        const departmentName = feature.properties.nom;
-                        const score = departmentScores[departmentName] || 0;
-                        return getStyleByScore(score);
-                    },
-                    onEachFeature: function (feature, layer) {
-                        layer.on({
-                            mouseover: handleMouseOver,
-                            mouseout: handleMouseOut,
-                            click: handleClick
-                        });
-                    }
-                }).addTo(map);
-            })
-            .catch(error => {
-                console.error("Erreur lors du chargement du GeoJSON :", error);
-                showErrorMessage("Impossible de charger la carte");
-            });
+    function getColorByScore(score) {
+        if (score >= 95) return "#006400";
+        if (score >= 90) return "#32CD32";
+        if (score >= 85) return "#ADFF2F";
+        if (score >= 80) return "#FFFF00";
+        if (score >= 75) return "#FFD700";
+        if (score >= 70) return "#FFA500";
+        if (score >= 65) return "#FF4500";
+        if (score >= 60) return "#FF6347";
+        if (score >= 55) return "#FF0000";
+        return "#B22222";
     }
 
     function getStyleByScore(score) {
@@ -66,11 +45,17 @@ document.addEventListener("DOMContentLoaded", function () {
         };
     }
 
+    function getScoreClass(score) {
+        if (score >= 90) return 'score-high';
+        if (score >= 75) return 'score-medium';
+        return 'score-low';
+    }
+
     function handleMouseOver(e) {
         const layer = e.target;
         const feature = layer.feature;
         const departmentName = feature.properties.nom;
-        const score = departmentScores[departmentName] || 0;
+        const score = departmentScores[departmentName]?.score_global || 0;
 
         layer.setStyle({
             weight: 2,
@@ -85,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const layer = e.target;
         const feature = layer.feature;
         const departmentName = feature.properties.nom;
-        const score = departmentScores[departmentName] || 0;
+        const score = departmentScores[departmentName]?.score_global || 0;
 
         layer.setStyle(getStyleByScore(score));
         closePopup();
@@ -96,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const feature = layer.feature;
 
         if (currentActiveLayer) {
-            const prevScore = departmentScores[currentActiveLayer.feature.properties.nom] || 0;
+            const prevScore = departmentScores[currentActiveLayer.feature.properties.nom]?.score_global || 0;
             currentActiveLayer.setStyle(getStyleByScore(prevScore));
         }
 
@@ -126,40 +111,49 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function showDepartmentInfo(feature) {
-        const departmentName = feature.properties.nom;
-        const departmentScore = departmentScores[departmentName] || "Non défini";
-        const scoreClass = getScoreClass(departmentScore);
-
-        const sidebarContent = `
-            <div class="department-info">
-                <h3>${departmentName}</h3>
-                <div class="score-display ${scoreClass}">
-                    <strong>Score:</strong> ${departmentScore}%
-                </div>
-                <div class="additional-info">
-                    <h4>Informations détaillées</h4>
-                    <p>Population: ${feature.properties.code || 'Non disponible'}</p>
-                    <p>Superficie: ${feature.properties.code || 'Non disponible'} km²</p>
-                </div>
-            </div>
-        `;
-
-        sidebarContentContainer.innerHTML = sidebarContent;
-        sidebar.classList.add('active');
-    }
-
-    function getScoreClass(score) {
-        if (score >= 90) return 'score-high';
-        if (score >= 75) return 'score-medium';
-        return 'score-low';
-    }
-
     function closePopup() {
         const popup = document.getElementById("custom-popup");
         if (popup) {
             popup.classList.remove("show");
         }
+    }
+
+    function showDepartmentInfo(feature) {
+        const departmentName = feature.properties.nom;
+        const departmentData = departmentScores[departmentName] || {};
+        
+        const scores = [
+          { label: 'Éolienne', value: departmentData.score_eolienne },
+          { label: 'Énergétique', value: departmentData.score_energetique },
+          { label: 'Électrique', value: departmentData.score_elec },
+          { label: 'IXP', value: departmentData.score_ixp }
+        ];
+  
+        const sidebarContent = `
+          <div class="department-info">
+            <div class="department-header">
+              <h2>${departmentName}</h2>
+              <button onclick="sidebar.classList.remove('active')" class="close-btn">×</button>
+            </div>
+            <div class="scores-grid">
+              ${scores.map(score => `
+                <div class="score-card">
+                  <div class="score-label">${score.label}</div>
+                  <div class="score-value">
+                    <div class="progress-ring">
+                      <div class="progress-circle" style="--progress: ${score.value || 0}%">
+                        <span>${score.value || 'N/D'}${score.value ? '%' : ''}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+        
+        sidebarContentContainer.innerHTML = sidebarContent;
+        sidebar.classList.add('active');
     }
 
     function showErrorMessage(message) {
@@ -179,26 +173,79 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 5000);
     }
 
-    function getColorByScore(score) {
-        if (score >= 95) return "#006400";
-        if (score >= 90) return "#32CD32";
-        if (score >= 85) return "#ADFF2F";
-        if (score >= 80) return "#FFFF00";
-        if (score >= 75) return "#FFD700";
-        if (score >= 70) return "#FFA500";
-        if (score >= 65) return "#FF4500";
-        if (score >= 60) return "#FF6347";
-        if (score >= 55) return "#FF0000";
-        return "#B22222";
+    function updateStatistics() {
+        const scores = Object.values(departmentScores).map(dept => dept.score_global).filter(Boolean);
+        if (scores.length === 0) return;
+
+        const average = scores.reduce((a, b) => a + b, 0) / scores.length;
+        const sortedScores = [...scores].sort((a, b) => a - b);
+        const median = sortedScores[Math.floor(scores.length / 2)];
+        const best = Math.max(...scores);
+        const worst = Math.min(...scores);
+
+        document.getElementById('average-score').textContent = average.toFixed(1) + '%';
+        document.getElementById('median-score').textContent = median.toFixed(1) + '%';
+        document.getElementById('best-score').textContent = best.toFixed(1) + '%';
+        document.getElementById('worst-score').textContent = worst.toFixed(1) + '%';
     }
 
-    openBtn.addEventListener("click", function() {
+    function loadMap() {
+        fetch("https://france-geojson.gregoiredavid.fr/repo/departements.geojson")
+            .then(response => response.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    style: function (feature) {
+                        const departmentName = feature.properties.nom;
+                        const score = departmentScores[departmentName]?.score_global || 0;
+                        return getStyleByScore(score);
+                    },
+                    onEachFeature: function (feature, layer) {
+                        layer.on({
+                            mouseover: handleMouseOver,
+                            mouseout: handleMouseOut,
+                            click: handleClick
+                        });
+                    }
+                }).addTo(map);
+            })
+            .catch(error => {
+                console.error("Erreur lors du chargement du GeoJSON :", error);
+                showErrorMessage("Impossible de charger la carte");
+            });
+    }
+
+    Promise.all([
+        fetch('/departements_scores/').then(response => response.json()),
+        fetch('/departements-data/').then(response => response.json())
+    ])
+    .then(([scores, data]) => {
+        departmentScores = data.reduce((acc, dept) => {
+            acc[dept.nom] = {
+                ...dept,
+                score_global: scores[dept.nom] || 0
+            };
+            return acc;
+        }, {});
+        
+        updateStatistics();
+        loadMap();
+    })
+    .catch(error => {
+        console.error("Erreur lors du chargement des données :", error);
+        showErrorMessage("Impossible de charger les données des départements");
+    });
+
+    openBtn.addEventListener("click", () => {
         sidebar.classList.toggle('active');
         if (!sidebar.classList.contains('active') && currentActiveLayer) {
-            const prevScore = departmentScores[currentActiveLayer.feature.properties.nom] || 0;
+            const prevScore = departmentScores[currentActiveLayer.feature.properties.nom]?.score_global || 0;
             currentActiveLayer.setStyle(getStyleByScore(prevScore));
             currentActiveLayer = null;
         }
+    });
+
+    leftSidebarToggle.addEventListener('click', () => {
+        leftSidebar.classList.toggle('active');
     });
 
     mapContainer.addEventListener('mousemove', (e) => {
@@ -218,45 +265,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (e.key === 'Escape' && sidebar.classList.contains('active')) {
             sidebar.classList.remove('active');
             if (currentActiveLayer) {
-                const prevScore = departmentScores[currentActiveLayer.feature.properties.nom] || 0;
+                const prevScore = departmentScores[currentActiveLayer.feature.properties.nom]?.score_global || 0;
                 currentActiveLayer.setStyle(getStyleByScore(prevScore));
                 currentActiveLayer = null;
             }
         }
     });
-
-    const leftSidebar = document.getElementById('left-sidebar');
-    const leftSidebarToggle = document.getElementById('left-sidebar-toggle');
-
-    leftSidebarToggle.addEventListener('click', () => {
-        leftSidebar.classList.toggle('active');
-    });
-
-    function updateStatistics() {
-        const scores = Object.values(departmentScores);
-        if (scores.length === 0) return;
-
-        const average = scores.reduce((a, b) => a + b, 0) / scores.length;
-        const median = scores.sort((a, b) => a - b)[Math.floor(scores.length / 2)];
-        const best = Math.max(...scores);
-        const worst = Math.min(...scores);
-
-        document.getElementById('average-score').textContent = average.toFixed(1) + '%';
-        document.getElementById('median-score').textContent = median.toFixed(1) + '%';
-        document.getElementById('best-score').textContent = best.toFixed(1) + '%';
-        document.getElementById('worst-score').textContent = worst.toFixed(1) + '%';
-
-    }
-
-    fetch("/departements_scores/")
-        .then(response => response.json())
-        .then(data => {
-            departmentScores = data;
-            updateStatistics(); 
-            loadMap();
-        })
-        .catch(error => {
-            console.error("Erreur lors du chargement des scores :", error);
-            showErrorMessage("Impossible de charger les données des départements");
-        });
 });

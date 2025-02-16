@@ -15,3 +15,9 @@ def get_departements_scores(request):
         dep.nom: dep.get_total_score() for dep in departements
     }
     return JsonResponse(data)
+
+def get_departement_data(request):
+    data = list(Departement.objects.values(
+        'nom', 'score_eolienne', 'score_energetique', 'score_elec', 'score_ixp'
+    ))
+    return JsonResponse(data, safe=False)
