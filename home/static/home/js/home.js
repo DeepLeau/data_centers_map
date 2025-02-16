@@ -209,8 +209,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 }).addTo(map);
             })
             .catch(error => {
-                console.error("Erreur lors du chargement du GeoJSON :", error);
-                showErrorMessage("Impossible de charger la carte");
+                console.error("Error while loading GeoJSON file :", error);
+                showErrorMessage("Impossible to load the map");
             });
     }
 
@@ -231,8 +231,8 @@ document.addEventListener("DOMContentLoaded", function () {
         loadMap();
     })
     .catch(error => {
-        console.error("Erreur lors du chargement des données :", error);
-        showErrorMessage("Impossible de charger les données des départements");
+        console.error("Error while loading datas :", error);
+        showErrorMessage("Impossible to load datas for the department");
     });
 
     openBtn.addEventListener("click", () => {
@@ -270,5 +270,33 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentActiveLayer = null;
             }
         }
+    });
+
+    const searchInput = document.getElementById("search-input");
+
+    function filterDepartments(query) {
+        const departmentLayers = map._layers;
+
+        Object.values(departmentLayers).forEach(layer => {
+            if (layer.feature && layer.feature.properties) {
+                const departmentName = layer.feature.properties.nom.toLowerCase();
+                const match = departmentName.includes(query.toLowerCase());
+
+                if (match) {
+                    layer.setStyle({
+                        opacity: 1, 
+                    });
+                } else {
+                    layer.setStyle({
+                        opacity: 0.2, 
+                    });
+                }
+            }
+        });
+    }
+
+    searchInput.addEventListener("input", function () {
+        const query = searchInput.value.trim();
+        filterDepartments(query);
     });
 });

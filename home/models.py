@@ -75,5 +75,5 @@ class Departement(models.Model):
         """
         score_energetique_max = max(self.score_energetique.get(annee, {}).values(), default=0)
 
-        self.total_score = round((self.score_elec + score_energetique_max + self.score_ixp + self.score_eolienne) / 3, 2)
+        self.total_score = round((self.score_elec + score_energetique_max + self.score_ixp) / 3, 2)
         return self.total_score

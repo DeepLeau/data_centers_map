@@ -1,109 +1,50 @@
-# Django Project
+# Interactive Department Score Map Project
 
-Ce projet est une application Django qui inclut un système d'authentification et une interface HTML/JS.
+## Project Overview
+This Django-based project leverages a SQLite database to power an interactive map displaying various department scores across a region. The map colors each department based on a composite score derived from multiple factors influencing environmental and infrastructural efficiencies.
 
-## 📌 Prérequis
+## Features
+- **Interactive Map**: Showcases all departments with colors representing their overall scores, which are computed based on four key factors:
+  - **Proximity to Electrical Grid**: Measures the minimum distance from the prefecture to the nearest distribution station.
+  - **Internet Exchange Point (IXP)**: Calculates the minimum distance from the prefecture to the nearest IXP node.
+  - **Energy Efficiency**: Utilizes the heat diffusion equation, considering a standardized water cooling system across all departments. The efficiency is influenced only by external temperatures, which are predicted up to the year 2100 using a RandomForest algorithm. This prediction incorporates current trends through linear regression to forecast temperature increases.
+  - **Wind Power Score**: Represents the total wind farm power available in each department.
+- **Search Bar**: Employs the Mistral Nemo-Instruct 2407 to deliver scores for each of the three criteria, highlighting relevant departments based on search results.
 
-Avant de lancer le projet, assurez-vous d'avoir installé :
+## Getting Started
+To get this project up and running on your local machine, follow these steps:
 
-- Python (≥ 3.8)
-- pip (gestionnaire de paquets Python)
-- PostgreSQL (optionnel, si vous souhaitez utiliser une base de données autre que SQLite)
-- Un environnement virtuel (recommandé)
+### Prerequisites
+- Python 3.8 or higher
+- Django 3.2 or higher
+- Other dependencies listed in `requirements.txt`
 
----
-
-## 🚀 Installation
-
-1. **Clonez le dépôt** :
+### Installation
+1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/ton-utilisateur/ton-repo.git
-   cd ton-repo
+   git clone https://github.com/DeepLeau/data_centers_map.git
    ```
-
-2. **Créez un environnement virtuel et activez-le** :
+2. Navigate to the project directory:
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # (Sous Windows : venv\Scripts\activate)
+   cd data_centers_map
    ```
-
-3. **Installez les dépendances** :
+3. Install the required packages:
    ```bash
    pip install -r requirements.txt
    ```
-
-4. **Appliquez les migrations** :
-   ```bash
-   python manage.py migrate
-   ```
-
-5. **Créez un superutilisateur (facultatif, pour l'administration)** :
-   ```bash
-   python manage.py createsuperuser
-   ```
-
-6. **Lancez le serveur Django** :
+4. Run the development server:
    ```bash
    python manage.py runserver
    ```
+5. Open your web browser and go to `http://127.0.0.1:8000/` to view the project.
 
-L'application sera accessible sur `http://127.0.0.1:8000/`.
+## Usage
+- Navigate the map to see the scores for each department.
+- Use the search bar to refine the map display based on specific criteria.
+- Click on any department to get a detailed breakdown of its scores and metrics.
 
----
+## Contributing
+Contributions to this project are welcome. Please ensure that your pull requests are well-documented and include any necessary updates to tests and documentation.
 
-## 📌 Structure du Projet
-
-```
-/ton-repo
-│── backend/            # Projet Django principal
-│── login/              # Application pour l'authentification
-│── home/               # Page d'accueil publique
-│── dashboard/          # Interface utilisateur après connexion
-│── static/             # Fichiers statiques (CSS, JS, images)
-│── templates/          # Templates HTML
-│── requirements.txt    # Dépendances du projet
-│── manage.py           # Commandes Django
-```
-
----
-
-## 📌 Comment Écrire en HTML/JS avec Django ?
-
-### 1️⃣ Créer un Template HTML
-
-Les fichiers HTML se trouvent dans `templates/`. Un exemple de fichier `home.html` :
-
-```html
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-</head>
-<body>
-    <h2>Welcome !</h2>
-    <p>Please connect yourself.</p>
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'register' %}">Create an account</a>
-</body>
-</html>
-```
-
-### 2️⃣ Ajouter un Fichier JavaScript
-
-Place ton JavaScript dans `static/js/script.js` dans l'application concerné:
-
-```js
-function showMessage() {
-    alert("Bonjour depuis Django !");
-}
-```
----
-
-## 📌 Liens Utiles
-
-- Documentation Django : [https://docs.djangoproject.com/fr/](https://docs.djangoproject.com/fr/)
-- Django Template Language (DTL) : [https://docs.djangoproject.com/en/4.2/ref/templates/](https://docs.djangoproject.com/en/4.2/ref/templates/)
-
----
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
