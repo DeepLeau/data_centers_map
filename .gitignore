@@ -2,3 +2,4 @@ local/
 create_json.py
 parc.json
 parc_national.csv
+.env
